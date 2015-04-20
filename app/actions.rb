@@ -4,5 +4,28 @@ get '/' do
 end
 
 get '/messages' do
-  'Message List here'
+  @messages = Message.all
+  erb :'messages/index'
+end
+
+get '/messages/new' do
+  erb :'messages/new'
+end
+
+post '/messages' do
+  @message = Message.new(
+    content: params[:content],
+    author:  params[:author],
+    url:   params[:url],
+  )
+  if @message.save
+    redirect '/messages'
+  else
+    erb :'messages/new'
+  end
+end
+
+get '/messages/:id' do
+  @message = Message.find params[:id]
+  erb :'messages/show'
 end

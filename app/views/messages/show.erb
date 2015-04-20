@@ -1,0 +1,31 @@
+<p>
+  Author: <%=@message.author %>
+</p>
+
+<p>
+  <%=@message.content  %>
+</p>
+<p>
+  <%=@message.url%>
+</p>
+<hr/>
+<p>
+  Other Post From This Author
+</p>
+
+  <%Message.where(:author => @message.author).where.not(:id => @message.id).all.each do |message|%> 
+    <%=message.content%>
+    <%=message.url%>
+    <br/>
+    <br/>
+  <% end%>
+
+
+
+ 
+<hr/>
+<a href="/messages">Back to All Messages</a>
+<!-- Message.find(4).author%> -->
+
+<!-- 
+Add an "other messages from this author" section to the show page. So it will retrieve other messages that have the exact same author string as the message being displayed. -->
